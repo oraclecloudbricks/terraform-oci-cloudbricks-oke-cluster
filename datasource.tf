@@ -52,17 +52,8 @@ data "oci_core_subnets" "ENDPOINTSUBNET" {
   }
 }
 
-data "oci_identity_region_subscriptions" "home_region_subscriptions" {
-  tenancy_id = var.tenancy_ocid
-
-  filter {
-    name   = "is_home_region"
-    values = [true]
-  }
-}
 
 locals {
-  release = "1.0"
   # Subnet OCID local accessors
   lbaas_subnet_ocid    = length(data.oci_core_subnets.LBAASSUBNET.subnets) > 0 ? data.oci_core_subnets.LBAASSUBNET.subnets[0].id : null
   nodepool_subnet_ocid = length(data.oci_core_subnets.ENDPOINTSUBNET.subnets) > 0 ? data.oci_core_subnets.LBAASSUBNET.subnets[0].id : null
